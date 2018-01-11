@@ -65,6 +65,9 @@ The outputs are:
 
 6. View the results:
 -View with command: curl -XGET 'http://localhost:9200/test-elasticsearch-sink/_search?pretty'
+
+
+
 {
   "took" : 53,
   "timed_out" : false,
