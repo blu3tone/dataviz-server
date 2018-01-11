@@ -12,6 +12,20 @@ In Ubuntu 16.04 (Streaming Platform) for foottraffic
   cd confluent-4.0.0
   bin/confluent start
   The screen show: 
+  Starting zookeeper
+zookeeper is [UP]
+Starting kafka
+kafka is [UP]
+Starting schema-registry
+schema-registry is [UP]
+Starting kafka-rest
+kafka-rest is [UP]
+Starting connect
+connect is [UP]
+
+Here, ZooKeeper, Kafka Stream, Schema Registry, kafka Rest API Server and Kafka Connect started
+
+  
   
 
 
