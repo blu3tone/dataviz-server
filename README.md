@@ -64,6 +64,70 @@ bin/conluent load elasticseach-sink
 The outputs are: 
 
 6. View the results:
+-View with command: curl -XGET 'http://localhost:9200/test-elasticsearch-sink/_search?pretty'
+{
+  "took" : 53,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 42,
+    "max_score" : 1.0,
+    "hits" : [ {
+      "_index" : "test-elasticsearch-sink",
+      "_type" : "kafka-connect",
+      "_id" : "test-elasticsearch-sink+0+4",
+      "_score" : 1.0,
+      "_source" : {
+        "uid" : "1578491135641261986",
+        "n" : 1,
+        "type" : 1,
+        "time" : 1.51564734710012E9,
+        "exitv" : -1.2873750736468446
+      }
+    }, {
+      "_index" : "test-elasticsearch-sink",
+      "_type" : "kafka-connect",
+      "_id" : "test-elasticsearch-sink+0+0",
+      "_score" : 1.0,
+      "_source" : {
+        "uid" : "1523977911038645569",
+        "n" : 1,
+        "type" : 1,
+        "time" : 1.515647344206663E9,
+        "exitv" : 0.6841413703674778
+      }
+    }, {
+      "_index" : "test-elasticsearch-sink",
+      "_type" : "kafka-connect",
+      "_id" : "test-elasticsearch-sink+0+11",
+      "_score" : 1.0,
+      "_source" : {
+        "uid" : "1523979445533152588",
+        "n" : 1,
+        "type" : 1,
+        "time" : 1.515647356111992E9,
+        "exitv" : -2.1120907174809274
+      }
+    }, {
+      "_index" : "test-elasticsearch-sink",
+      "_type" : "kafka-connect",
+      "_id" : "test-elasticsearch-sink+0+9",
+      "_score" : 1.0,
+      "_source" : {
+        "uid" : "1523977911038645569",
+        "n" : 0,
+        "type" : 1,
+        "time" : 1.515647352206666E9,
+        "exitv" : 1.9189196620755813
+      }
+    }, {
+     
+
+-View in Kibana:
               
 
 
