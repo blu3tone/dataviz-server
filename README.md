@@ -52,21 +52,34 @@ python readurl.py | ./bin/kafka-avro-console-producer --broker-list localhost:90
 
 
 Note that Confluent uses avro schema, and we define the avro schema for foot data traffic as follows: 
+
 Data:
+
 {"uid":"1578491135641261986","n":0,"type":1,"time":1515652581.100507,"exitv":-1.2196424841942493}
+
 {"uid":"1527786296288744591","n":1,"type":1,"time":1515652580.260067,"exitv":-0.5785242144177053}
+
 {"uid":"1578491135641261986","n":0,"type":1,"time":1515652589.100508,"exitv":-1.3053659701459766}
+
 {"uid":"1578491135641261986","n":1,"type":1,"time":1515652591.100509,"exitv":-1.7864380367093664}
+
 {"uid":"1578491135641261986","n":1,"type":1,"time":1515652591.10051,"exitv":-1.7021117657779847}
 
 
 Schema: 
+
 '{ "type": "record",
+
    "name": "opendata",
+   
    "fields": [ {"name": "uid", "type": "long"},
+   
               {"name": "n","type": "int"},
+              
               {"name": "type", "type": "int"},
+              
               {"name": "time", "type": "double"},
+              
               {"name":"exitv", "type": "double"}
         
         ]}'
@@ -83,53 +96,102 @@ The outputs are:
 
 
 {
+
   "took" : 53,
+  
   "timed_out" : false,
+  
   "_shards" : {
+  
     "total" : 5,
+    
     "successful" : 5,
+    
     "failed" : 0
+    
   },
+  
   "hits" : {
+  
     "total" : 42,
+    
     "max_score" : 1.0,
+    
+    
     "hits" : [ {
+    
       "_index" : "test-elasticsearch-sink",
+      
       "_type" : "kafka-connect",
+      
       "_id" : "test-elasticsearch-sink+0+4",
+      
       "_score" : 1.0,
+      
       "_source" : {
+      
         "uid" : "1578491135641261986",
+        
         "n" : 1,
+        
         "type" : 1,
+        
         "time" : 1.51564734710012E9,
+        
         "exitv" : -1.2873750736468446
+        
       }
+      
     }, {
+    
       "_index" : "test-elasticsearch-sink",
+      
       "_type" : "kafka-connect",
+      
       "_id" : "test-elasticsearch-sink+0+0",
+      
       "_score" : 1.0,
+      
       "_source" : {
+      
         "uid" : "1523977911038645569",
+        
         "n" : 1,
+        
         "type" : 1,
+        
         "time" : 1.515647344206663E9,
+        
         "exitv" : 0.6841413703674778
+        
       }
     }, {
+    
       "_index" : "test-elasticsearch-sink",
+      
       "_type" : "kafka-connect",
+      
       "_id" : "test-elasticsearch-sink+0+11",
+      
       "_score" : 1.0,
+      
       "_source" : {
+      
         "uid" : "1523979445533152588",
+        
         "n" : 1,
+        
         "type" : 1,
+        
         "time" : 1.515647356111992E9,
+        
         "exitv" : -2.1120907174809274
+        
       }
     }, {
+    
+    
+    
       "_index" : "test-elasticsearch-sink",
       "_type" : "kafka-connect",
       "_id" : "test-elasticsearch-sink+0+9",
