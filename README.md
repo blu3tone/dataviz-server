@@ -28,9 +28,14 @@ Here, ZooKeeper, Kafka Stream, Schema Registry server, kafka Rest API Server and
 
 3. Install ElasticSearch and Kibana
 
+3.1  ElasticSearch
+
+3.2  Kibana
+
 4. Register the foottraffic data schema to the Schema Registry server and load the data to the Kafka:
 
 python readurl.py | ./bin/kafka-avro-console-producer --broker-list localhost:9092 --topic test-elasticsearch-sink --property value.schema='{"type": "record","name": "opendata","fields": [ {"name": "uid", "type": "long"},{"name": "n","type": "int"},{"name": "type", "type": "int"},{"name": "time", "type": "double"},{"name":"exitv", "type": "double"}]}'
+
 
 Note that Confluent uses avro schema, and we define the avro schema for foot data traffic as follows: 
 Data:
@@ -39,6 +44,8 @@ Data:
 {"uid":"1578491135641261986","n":0,"type":1,"time":1515652589.100508,"exitv":-1.3053659701459766}
 {"uid":"1578491135641261986","n":1,"type":1,"time":1515652591.100509,"exitv":-1.7864380367093664}
 {"uid":"1578491135641261986","n":1,"type":1,"time":1515652591.10051,"exitv":-1.7021117657779847}
+
+
 Schema: 
 '{ "type": "record",
    "name": "opendata",
@@ -47,8 +54,16 @@ Schema:
               {"name": "type", "type": "int"},
               {"name": "time", "type": "double"},
               {"name":"exitv", "type": "double"}
-              ]}'
-              
+        
+        ]}'
+        
+
+5. Load the ElasticSearch-sink (in Kafka Connect):
+bin/conluent load elasticseach-sink
+
+The outputs are: 
+
+6. View the results:
               
 
 
