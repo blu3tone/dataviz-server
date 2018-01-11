@@ -40,7 +40,16 @@ Data:
 {"uid":"1578491135641261986","n":1,"type":1,"time":1515652591.100509,"exitv":-1.7864380367093664}
 {"uid":"1578491135641261986","n":1,"type":1,"time":1515652591.10051,"exitv":-1.7021117657779847}
 Schema: 
-'{"type": "record","name": "opendata","fields": [ {"name": "uid", "type": "long"},{"name": "n","type": "int"},{"name": "type", "type": "int"},{"name": "time", "type": "double"},{"name":"exitv", "type": "double"}]}'
+'{ "type": "record",
+   "name": "opendata",
+   "fields": [ {"name": "uid", "type": "long"},
+              {"name": "n","type": "int"},
+              {"name": "type", "type": "int"},
+              {"name": "time", "type": "double"},
+              {"name":"exitv", "type": "double"}
+              ]}'
+              
+              
 
 
 
