@@ -219,6 +219,8 @@ The outputs are:
      
 
 -View in Kibana:
+
+You can see here: http://45.124.95.145/app/kibana#/discover?_g=()&_a=(columns:!(_source),index:%27*%27,interval:auto,query:%27%27,sort:!(_score,desc))
               
 
 
