@@ -49,6 +49,13 @@ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.2.2.de
 
 sudo dpkg -i elasticsearch-5.2.2.deb
 
+sudo systemctl daemon-reload
+
+sudo systemctl enable elasticsearch
+
+sudo systemctl restart elasticsearch
+
+
 3.2  Kibana
 
 4. Register the foottraffic data schema to the Schema Registry server and load the data to the Kafka:
