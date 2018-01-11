@@ -86,7 +86,7 @@ Schema:
         
 
 5. Load the ElasticSearch-sink (in Kafka Connect):
-bin/conluent load elasticseach-sink
+bin/confluent load elasticseach-sink
 
 The outputs are: 
 
