@@ -43,8 +43,11 @@ Here, ZooKeeper, Kafka Stream, Schema Registry server, kafka Rest API Server and
 3. Install ElasticSearch and Kibana
 
 3.1  ElasticSearch
+mkdir elasticsearch; cd elasticsearch
 
-sudo apt-get install elasticsearch
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.2.2.deb
+
+sudo dpkg -i elasticsearch-5.2.2.deb
 
 3.2  Kibana
 
