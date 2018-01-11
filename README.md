@@ -44,6 +44,8 @@ Here, ZooKeeper, Kafka Stream, Schema Registry server, kafka Rest API Server and
 
 3.1  ElasticSearch
 
+sudo apt-get install elasticsearch
+
 3.2  Kibana
 
 4. Register the foottraffic data schema to the Schema Registry server and load the data to the Kafka:
