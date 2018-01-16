@@ -221,8 +221,126 @@ The outputs are:
 -View in Kibana:
 
 You can see here: http://45.124.95.145/app/kibana#/discover?_g=()&_a=(columns:!(_source),index:%27*%27,interval:auto,query:%27%27,sort:!(_score,desc))
-              
+            
+            
+            
+Now, we can connect Kafka Stream with Cassandra (NoSQL).
 
+Prerequisites:
+ 
+ -Confluent 3.0.0
+ 
+ -Cassandra 3.11.1
+ 
+ 
+ 1. Start Conluent:
+ 
+ -cd confluent3.0.0
+ 
+ - Start ZooKeeper:  ./bin/zookeeper-server-start ./etc/kafka/zookeeper.properties
+ 
+ -Start  Kafka Stream: /bin/kafka-server-start ./etc/kafka/server.properties
+ 
+ -Start Schema Registry:  /bin/schema-registry-start ./etc/schema-registry/schema-registry.properties
+ 
+ -Start Kafka Connect: bin/connect-distributed etc/schema-registry/connect-avro-distributed.properties
+ 
+ 
+ 2. Start Cassandra Database: 
+ 
+ We can use bin/cqlsh in apache-cassandra-3.11.1 to:
+ 
+ -Create KeySpace demo:  cqlsh>CREATE KEYSPACE demo WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 3};
+ 
+ -Create table foottraffic: 
+ cqlsh>use demo
+ 
+ cqlsh-demo> create table foottraffic (uid bigint, n tinyint, type tinyint, time double, exitv double, PRIMARY KEY (uid, time)) WITH CLUSTERING ORDER BY (time asc); 
+ 
+3. Connector: cassandra-sink-foottraffic:
+
+-Create file cassandra-sink-distributed-foottraffic.properties: with the following contents:
+
+name=cassandra-sink-foottraffic
+
+connector.class=com.datamountaineer.streamreactor.connect.cassandra.sink.CassandraSinkConnector
+
+tasks.max=1
+
+topics=foottraffic-topic
+
+connect.cassandra.export.route.query=INSERT INTO foottraffic SELECT * FROM foottraffic-topic
+
+connect.cassandra.contact.points=localhost
+
+connect.cassandra.port=9042
+
+connect.cassandra.key.space=demo
+
+connect.cassandra.username=cassandra
+
+connect.cassandra.password=cassandra
+
+-Add plugin kafka-connect-cassandra to CLASSPATH: 
+  
+    . Download `Stream Reactor`(stream-reactor-release-0.2-3.0.0.tar.gz) - https://github.com/datamountaineer/stream-reactor/releases/download/v0.2/stream-reactor-release-0.2-3.0.0.tar.gz  
+    
+  Uncompress the file. 
+  
+   .export CLASSPATH=$(PWD)/stream-reactor-release-0.2-3.0.0/kafka-connect-cassandra-0.2-3.0.0-all.jar
+   
+   You must replasce $PWD with your path to the connector jar file. 
+   
+-Start Cassandra-Sink:  
+
+
+   Download kafka-connect-cli -  https://github.com/Landoop/kafka-connect-tools/releases/tag/v0.5
+   Create Connect `cassandra-sink-orders`:
+java -jar kafka-connect-cli-0.5-all.jar create cassandra-sink-orders < cassandra-sink-distributed-orders.properties
+
+- Restart Kafka Connect: 
+    cd confluent-3.0.0
+    
+       bin/connect-distributed etc/schema-registry/connect-avro-distributed.properties
+
+-Check for available connector plugins:
+
+   curl http://localhost:8083/connector-plugins
+   
+   You can see cassandra-sink connector
+   
+4. Writing Data to Cassandra through Kafka Stream:
+
+- python readurl.py | bin/kafka-avro-console-producer --broker-list localhost:9092 --topic foottraffic-topic --property value.schema='{"type": "record","name": "opendata","fields": [ {"name": "uid", "type": "string"},{"name": "n","type": "int"},{"name": "type", "type": "int"},{"name": "time", "type": "double"},{"name":"exitv", "type": "double"}]}'
+
+
+-Check data in Cassandra Database: 
+cqlsh-demo> select * from foottraffic; 
+
+
+uid                 | time       | exitv     | n | type
+---------------------+------------+-----------+---+------
+ 1578491135641261986 | 1.5161e+09 |  -2.62536 | 1 |    1
+ 1578491135641261986 | 1.5161e+09 |  -1.07685 | 2 |    1
+ 1578491135641261986 | 1.5161e+09 | -0.429762 | 1 |    1
+ 1578491135641261986 | 1.5161e+09 |  -2.72652 | 1 |    1
+ 1578491135641261986 | 1.5161e+09 |   1.84174 | 0 |    1
+ 1578491135641261986 | 1.5161e+09 |   1.54139 | 1 |    1
+ 1578491135641261986 | 1.5161e+09 | -0.840557 | 1 |    1
+ 1578491135641261986 | 1.5161e+09 | -0.369334 | 1 |    1
+
+.....
+
+
+
+ 
+   
+   
+  
+  
+
+ 
+   
 
 
 
