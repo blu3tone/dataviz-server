@@ -295,10 +295,13 @@ connect.cassandra.password=cassandra
 
 
    Download kafka-connect-cli -  https://github.com/Landoop/kafka-connect-tools/releases/tag/v0.5
+   
    Create Connect `cassandra-sink-orders`:
+   
 java -jar kafka-connect-cli-0.5-all.jar create cassandra-sink-orders < cassandra-sink-distributed-orders.properties
 
 - Restart Kafka Connect: 
+
     cd confluent-3.0.0
     
        bin/connect-distributed etc/schema-registry/connect-avro-distributed.properties
@@ -319,14 +322,23 @@ cqlsh-demo> select * from foottraffic;
 
 
 uid                 | time       | exitv     | n | type
+
 ---------------------+------------+-----------+---+------
+
  1578491135641261986 | 1.5161e+09 |  -2.62536 | 1 |    1
+ 
  1578491135641261986 | 1.5161e+09 |  -1.07685 | 2 |    1
+ 
  1578491135641261986 | 1.5161e+09 | -0.429762 | 1 |    1
+ 
  1578491135641261986 | 1.5161e+09 |  -2.72652 | 1 |    1
+ 
  1578491135641261986 | 1.5161e+09 |   1.84174 | 0 |    1
+ 
  1578491135641261986 | 1.5161e+09 |   1.54139 | 1 |    1
+ 
  1578491135641261986 | 1.5161e+09 | -0.840557 | 1 |    1
+ 
  1578491135641261986 | 1.5161e+09 | -0.369334 | 1 |    1
 
 .....
