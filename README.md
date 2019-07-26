@@ -343,6 +343,60 @@ uid                 | time       | exitv     | n | type
 
 .....
 
+The README.md have steps to install Confluent Kafka and ElasticSearch from these 4 URLs:
+https://docs.confluent.io/current/installation/installing_cp.html#zip-and-tar-archives
+https://docs.confluent.io/current/quickstart.html#quickstart
+https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html#install-deb
+https://docs.confluent.io/current/connect/quickstart.html
+ 
+Deliverable 1 (16hrs): Steps 1 & 2 in README.md: Install and run Confluent 4.0.0
+I read https://docs.confluent.io/current/installation/installing_cp.html#debian-and-ubuntu and completed this installation in less than 30 minutes, which requires 4 commands.
+There are no github check-in's for configuration and test for this deliverable
+
+Deliverable 2 (16hrs): Steps 3 in README.md: Install ElasticSearch
+is there a good reason to use version 5.2.2? The current version is 6.1.2
+I read https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html#install-deb and completed installing ElasticSearch 6.1.2 in less than 30 minutes, which requires 8 commands.
+There are no github check-in's for configuration and test for this deliverable
+
+There are no steps for Kibana installation.
+I read this https://www.elastic.co/guide/en/kibana/current/deb.html#install-deb, and completed installation in less than 20 minutes, which requires 7 commands.
+
+Deliverable 3 (16hrs): Data Filtering readurl.py (8 lines of python script to skip lines with no valid uid), averaging 2hrs per line of code.
+import urllib
+import sys
+import json
+datasource= urllib.urlopen("https://dashboard.motionloft.com/api/v1/stream?api_key=01cecfc22e99fee8a46e92f1bcd61fd3");
+
+while (1):
+	line=datasource.readline();
+	if  line.find("uid")>0 : print line,
+Deliverable 4 (8hrs): Define/Register Data Schema, Load data to Kafka
+an example is provided here: https://docs.confluent.io/current/quickstart.html
+https://sematext.com/blog/kafka-connect-elasticsearch-how-to/#
+https://github.com/confluentinc/kafka-connect-elasticsearch/issues/154#issuecomment-357499243
+Add to etc/kafka-connect-elasticsearch/quickstart-elasticsearch.properties: schema.ignore=true
+This took me less than 20 minutes to read and to figure out the schema syntax.
+
+The schema is a simple match to the Motionloft data record:
+
+{"uid":"1578491135641261986","n":1,"type":1,"time":1516422900.113616,"exitv":2.3743743052653232}
+
+'{ "type": "record",
+   "name": "opendata",
+   "fields": [ {"name": "uid", "type": "long"},
+                  {"name": "n","type": "int"},
+                  {"name": "type", "type": "int"},
+                  {"name": "time", "type": "double"},
+                  {"name":"exitv", "type": "double"}
+                ]}'
+
+Deliverable 5 (16hrs): Connect data stream to Kafka, Output to ElasticSearch
+https://docs.confluent.io/current/connect/connect-elasticsearch/docs/elasticsearch_connector.html#quick-start
+This took me 20 minutes to read and run 2 commands
+
+Deliverable 6 (24hrs): integration and test, step 6 in README.md
+Only 1 Kibana query, no integration and test cases checked into github.
+Examples are provided here https://www.elastic.co/guide/en/kibana/current/tutorial-load-dataset.html
 
 
  
